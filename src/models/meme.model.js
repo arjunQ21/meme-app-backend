@@ -7,6 +7,12 @@ const memeSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    likes: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "User",
+        }
+    ],
     uploadedBy: {
         type: mongoose.Types.ObjectId,
         ref: "User",
@@ -21,6 +27,7 @@ memeSchema.methods.formatted = async function(req){
     let paths = this.filePath.split(path.sep) ;
     paths.shift() ;
     return {
+        ...{likes: []},
         ...populated, 
         filePath: (req.secure ? "https://" : "http://") + req.headers.host + "/" + paths.join("/")
     }

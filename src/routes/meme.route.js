@@ -82,8 +82,7 @@ singleMemeRouter.post("/toggle-like", catchAsync(async function(req, res){
     req.meme.likes.pull(req.user._id); 
   }
   await req.meme.save() ;
-  const likesNowUpd = req.meme.likes.map(e => e.toString()).some(e => e == req.user._id.toString()) ;
-  return res.send({"likes": likesNowUpd}) ;
+  return res.send({likes: req.meme.likes})
 }))
 
 // update caption

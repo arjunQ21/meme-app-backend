@@ -52,7 +52,7 @@ if (config.env === 'production') {
 }
 
 // static files
-app.use("/uploads", express.static("src"+ path.sep +"uploads"))
+app.use("/images", express.static(config.uploadsStorageDir))
 
 // v1 api routes
 app.use('/', routes);

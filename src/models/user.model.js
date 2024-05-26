@@ -3,6 +3,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { toJSON, paginate } = require('./plugins');
 const { roles } = require('../config/roles');
+const path = require('path');
 
 const userSchema = mongoose.Schema(
   {
@@ -17,18 +18,21 @@ const userSchema = mongoose.Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      validate(value) {
+      validate (value) {
         if (!validator.isEmail(value)) {
           throw new Error('Invalid email');
         }
       },
+    },
+    imageURL: {
+      type: String,
     },
     password: {
       type: String,
       required: true,
       trim: true,
       minlength: 8,
-      validate(value) {
+      validate (value) {
         if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
           throw new Error('Password must contain at least one letter and one number');
         }
@@ -57,6 +61,20 @@ const userSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
 userSchema.plugin(paginate);
+
+
+userSchema.methods.formatted = async function (req) {
+
+
+  const imageURL = this.imageURL ?
+    (req.secure ? "https://" : "http://") + req.headers.host + "/images/" + (this.imageURL.split(path.sep).join("/")) : null;
+  return {
+    ...{ likes: [] },
+    ...JSON.parse(JSON.stringify(this)),
+    ...{ id: this._id },
+    imageURL,
+  }
+}
 
 /**
  * Check if email is taken

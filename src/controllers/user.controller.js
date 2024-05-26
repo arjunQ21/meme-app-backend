@@ -21,7 +21,7 @@ const getMe = catchAsync(async (req, res) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  res.send(user);
+  res.send({user: await user.formatted(req)});
 });
 
 const getUser = catchAsync(async (req, res) => {

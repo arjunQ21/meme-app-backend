@@ -23,11 +23,15 @@ const memeSchema = mongoose.Schema({
 
 memeSchema.methods.formatted = async function (req) {
     this.populate("uploadedBy");
-    const populated = JSON.parse(JSON.stringify(await this.execPopulate()));
+    // const populated = JSON.parse(JSON.stringify(await this.execPopulate()));
+    let populated = await this.execPopulate();
+    populated.uploadedBy= await populated.uploadedBy.formatted(req) ;
+    const popUser = JSON.parse(JSON.stringify(populated)) ;
     const filePath = (req.secure ? "https://" : "http://") + req.headers.host + "/images/" + (this.filePath.split(path.sep).join("/"));
     return {
         ...{ likes: [] },
-        ...populated,
+        ...popUser,
+        // ...{uploadedBy: await populated.uploadedBy.formatted(req)},
         filePath,
     }
 }

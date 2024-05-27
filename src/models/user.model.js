@@ -65,13 +65,14 @@ userSchema.plugin(paginate);
 
 userSchema.methods.formatted = async function (req) {
 
+  // console.log(this.toObject()) ;
 
   const imageURL = this.imageURL ?
     (req.secure ? "https://" : "http://") + req.headers.host + "/images/" + (this.imageURL.split(path.sep).join("/")) : null;
   return {
     ...{ likes: [] },
     ...JSON.parse(JSON.stringify(this)),
-    ...{ id: this._id },
+    // ...{ id: this._id },
     imageURL,
   }
 }

@@ -7,7 +7,7 @@ const ApiError = require('../utils/ApiError');
 const router = express.Router();
 const path = require("path");
 const { uploadsStorageDir } = require('../config/config');
-const mongoose  = require('mongoose');
+const mongoose = require('mongoose');
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -54,32 +54,32 @@ router.post("/", auth(), upload.single("image"), catchAsync(async function (req,
 }))
 
 // get liked memes of certain user id
-router.get("/liked/:userId",  auth(), catchAsync(async function (req, res) {
+router.get("/liked/:userId", auth(), catchAsync(async function (req, res) {
 
-  if(!req.params.userId.match(/^[0-9a-fA-F]{24}$/)){
-    throw new Error("Invaid user id") ;
+  if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+    throw new Error("Invaid user id");
   }
 
   const likedMemes = await Meme.find({ likes: mongoose.Types.ObjectId(req.params.userId) });
 
-  return res.send({
-    memes: await Promise.all(likedMemes.reverse().map(e => e.formatted(req)))
-  })
+  return res.send(
+    await Promise.all(likedMemes.reverse().map(e => e.formatted(req)))
+  )
 
 }))
 
 // get memes posted by certain user id
-router.get("/by/:userId",  auth(), catchAsync(async function (req, res) {
+router.get("/by/:userId", auth(), catchAsync(async function (req, res) {
 
-  if(!req.params.userId.match(/^[0-9a-fA-F]{24}$/)){
-    throw new Error("Invaid user id") ;
+  if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+    throw new Error("Invaid user id");
   }
 
   const likedMemes = await Meme.find({ uploadedBy: mongoose.Types.ObjectId(req.params.userId) });
 
-  return res.send({
-    memes: await Promise.all(likedMemes.reverse().map(e => e.formatted(req)))
-  })
+  return res.send(
+    await Promise.all(likedMemes.reverse().map(e => e.formatted(req)))
+  )
 
 }))
 

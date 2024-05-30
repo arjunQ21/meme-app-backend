@@ -3,12 +3,12 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const config = require('../config/config');
-const memeRoute = require("./meme.route") ;
+const memeRoute = require("./meme.route");
 
 const router = express.Router();
 
-router.get("/", function(req, res){
-  return res.send("<h2> Memes App Backend. </h2><p>This was developed for <a href='https://github.com/arjunQ21/flutter-soch-college'>this flutter class</a> in Soch College.</p>")
+router.get("/", function (req, res) {
+  return res.send("<h2> Memes App Backend<br> </h2><p>This was developed for <a href='https://github.com/arjunQ21/flutter-soch-college'>this flutter class</a> in Soch College.</p>")
 })
 
 const defaultRoutes = [

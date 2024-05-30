@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "f1098d26-1899-4683-9428-46cb2c861f61",
+		"name": "Memes App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34999459",
+		"_collection_link": "https://soch-flutter.postman.co/workspace/Team-Workspace~45f3c8e7-0c09-48b0-887c-409b1d2a9692/collection/34999459-f1098d26-1899-4683-9428-46cb2c861f61?action=share&source=collection_link&creator=34999459"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"AUTH_TOKEN\",pm.response.json().tokens.access.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"arjunq21@gmail.com\",\n    \"password\": \"asdfasdf1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Profile Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/arjunq21/Desktop/Auth UI.png"
+								},
+								{
+									"key": "phone",
+									"value": "98898989",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"asdf@gmail.com\",\n    \"password\": \"asdfasdf1\",\n    \"name\": \"Shyam Karki\",\n    \"phone\": \"9898988998\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Memes",
+			"item": [
+				{
+					"name": "Single Meme",
+					"item": [
+						{
+							"name": "Get Single",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AUTH_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/memes/664973949c01293c24244bdf",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memes",
+										"664973949c01293c24244bdf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Likers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AUTH_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/memes/6652ad231ebc10dcbaa181a8/likers",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memes",
+										"6652ad231ebc10dcbaa181a8",
+										"likers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Caption",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AUTH_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"caption\": \"Howdy\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/memes/664973949c01293c24244bdf",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memes",
+										"664973949c01293c24244bdf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Meme",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AUTH_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"caption\": \"Howdy\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/memes/664973949c01293c24244bdf",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memes",
+										"664973949c01293c24244bdf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Toggle Like",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AUTH_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/memes/6652c1818b5cd5a208bf3ce2/toggle-like",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memes",
+										"6652c1818b5cd5a208bf3ce2",
+										"toggle-like"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/memes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"memes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Liked Memes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/memes/liked/6656c3fda056dbc71a4c2338",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"memes",
+								"liked",
+								"6656c3fda056dbc71a4c2338"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posted Memes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/memes/by/6656c3fda056dbc71a4c2338",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"memes",
+								"by",
+								"6656c3fda056dbc71a4c2338"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/arjunq21/Desktop/HomePage.png"
+								},
+								{
+									"key": "caption",
+									"value": "Jharana ma",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/memes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"memes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

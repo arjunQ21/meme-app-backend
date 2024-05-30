@@ -126,4 +126,10 @@ singleMemeRouter.delete("/", catchAsync(async function (req, res) {
   }
 }))
 
+// get likers
+singleMemeRouter.get("/likers", catchAsync(async function(req, res){
+  const likers = await Promise.all((await mongoose.model("User").find({_id:  req.meme.likes})).map(e => e.formatted(req))) ;
+  return res.send(likers)
+}))
+
 module.exports = router;
